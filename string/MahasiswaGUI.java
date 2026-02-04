@@ -1,4 +1,4 @@
-package String;
+package string;
 
 import java.awt.*;
 import java.awt.event.*;
