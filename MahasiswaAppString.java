@@ -15,12 +15,12 @@ class Mahasiswa {
     }
 }
 
-public class MahasiswaApp {
+public class MahasiswaAppString {
     private static final int CAPACITY = 10;
     private final Mahasiswa[] data;
     private int count;
 
-    public MahasiswaApp() {
+    public MahasiswaAppString() {
         data = new Mahasiswa[CAPACITY];
         count = 0;
     }
@@ -163,7 +163,7 @@ public class MahasiswaApp {
 
     public static void main(java.lang.String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MahasiswaApp managementSystem = new MahasiswaApp();
+        MahasiswaAppString managementSystem = new MahasiswaAppString();
         int choice;
         boolean running = true;
 
