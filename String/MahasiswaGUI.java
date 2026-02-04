@@ -1,8 +1,8 @@
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
-import java.awt.event.*;
 
 class MahasiswaData {
     String nim;
