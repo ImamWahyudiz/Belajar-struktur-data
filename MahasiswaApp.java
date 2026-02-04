@@ -22,7 +22,7 @@ public class MahasiswaApp {
 
     public MahasiswaApp() {
         data = new Mahasiswa[CAPACITY];
-        count = 0;public String toString() {
+        count = 0;
     }
 
     // Insert at beginning
