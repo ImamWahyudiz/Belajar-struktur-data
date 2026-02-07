@@ -151,15 +151,15 @@ public class javaX {
     // Display menu
     public void displayMenu() {
         System.out.println("\n===== MENU MANAJEMEN DATA MAHASISWA =====");
-        System.out.println("1. Insert at beginning");
-        System.out.println("2. Insert at given position");
-        System.out.println("3. Insert at end");
-        System.out.println("4. Delete from beginning");
-        System.out.println("5. Delete given position");
-        System.out.println("6. Delete from end");
-        System.out.println("7. Delete first occurence");
-        System.out.println("8. Show data");
-        System.out.println("9. Exit");
+        System.out.println("1. Tambah di awal");
+        System.out.println("2. Tambah di posisi tertentu");
+        System.out.println("3. Tambah di akhir");
+        System.out.println("4. Hapus dari awal");
+        System.out.println("5. Hapus dari posisi tertentu");
+        System.out.println("6. Hapus dari akhir");
+        System.out.println("7. Hapus berdasarkan NIM");
+        System.out.println("8. Tampilkan data");
+        System.out.println("9. Keluar");
         System.out.println("========================================");
     }
 

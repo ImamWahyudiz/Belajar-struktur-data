@@ -136,15 +136,15 @@ class MahasiswaApp:
     def display_menu(self):
         """Tampilkan menu"""
         print("\n===== MENU MANAJEMEN DATA MAHASISWA =====")
-        print("1. Insert at beginning")
-        print("2. Insert at given position")
-        print("3. Insert at end")
-        print("4. Delete from beginning")
-        print("5. Delete given position")
-        print("6. Delete from end")
-        print("7. Delete first occurence")
-        print("8. Show data")
-        print("9. Exit")
+        print("1. Tambah di awal")
+        print("2. Tambah di posisi tertentu")
+        print("3. Tambah di akhir")
+        print("4. Hapus dari awal")
+        print("5. Hapus dari posisi tertentu")
+        print("6. Hapus dari akhir")
+        print("7. Hapus berdasarkan NIM")
+        print("8. Tampilkan data")
+        print("9. Keluar")
         print("========================================")
 
 
