@@ -164,83 +164,76 @@ public class MahasiswaApp {
     }
 
     public static void main(java.lang.String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        MahasiswaApp managementSystem = new MahasiswaApp();
-        int choice;
-        boolean running = true;
+        try (Scanner scanner = new Scanner(System.in)) {
+            MahasiswaApp managementSystem = new MahasiswaApp();
+            int choice;
+            boolean running = true;
 
-        System.out.println("=== PROGRAM MANAJEMEN DATA MAHASISWA ===");
-        System.out.println("Kapasitas Array: " + CAPACITY);
-        System.out.println("=========================================\n");
+            System.out.println("=== PROGRAM MANAJEMEN DATA MAHASISWA ===");
+            System.out.println("Kapasitas Array: " + CAPACITY);
+            System.out.println("=========================================\n");
 
-        while (running) {
-            managementSystem.displayMenu();
-            System.out.print("Pilih menu (1-9): ");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            while (running) {
+                managementSystem.displayMenu();
+                System.out.print("Pilih menu (1-9): ");
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Masukkan NIM: ");
-                    java.lang.String nim1 = scanner.nextLine();
-                    System.out.print("Masukkan Nama: ");
-                    java.lang.String nama1 = scanner.nextLine();
-                    managementSystem.insertAtBeginning(nim1, nama1);
-                    break;
+                switch (choice) {
+                    case 1 -> {
+                        System.out.print("Masukkan NIM: ");
+                        java.lang.String nim1 = scanner.nextLine();
+                        System.out.print("Masukkan Nama: ");
+                        java.lang.String nama1 = scanner.nextLine();
+                        managementSystem.insertAtBeginning(nim1, nama1);
+                    }
 
-                case 2:
-                    System.out.print("Masukkan posisi (0 - " + managementSystem.count + "): ");
-                    int position = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Masukkan NIM: ");
-                    java.lang.String nim2 = scanner.nextLine();
-                    System.out.print("Masukkan Nama: ");
-                    java.lang.String nama2 = scanner.nextLine();
-                    managementSystem.insertAtPosition(position, nim2, nama2);
-                    break;
+                    case 2 -> {
+                        System.out.print("Masukkan posisi (0 - " + managementSystem.count + "): ");
+                        int position = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.print("Masukkan NIM: ");
+                        java.lang.String nim2 = scanner.nextLine();
+                        System.out.print("Masukkan Nama: ");
+                        java.lang.String nama2 = scanner.nextLine();
+                        managementSystem.insertAtPosition(position, nim2, nama2);
+                    }
 
-                case 3:
-                    System.out.print("Masukkan NIM: ");
-                    java.lang.String nim3 = scanner.nextLine();
-                    System.out.print("Masukkan Nama: ");
-                    java.lang.String nama3 = scanner.nextLine();
-                    managementSystem.insertAtEnd(nim3, nama3);
-                    break;
+                    case 3 -> {
+                        System.out.print("Masukkan NIM: ");
+                        java.lang.String nim3 = scanner.nextLine();
+                        System.out.print("Masukkan Nama: ");
+                        java.lang.String nama3 = scanner.nextLine();
+                        managementSystem.insertAtEnd(nim3, nama3);
+                    }
 
-                case 4:
-                    managementSystem.deleteFromBeginning();
-                    break;
+                    case 4 -> managementSystem.deleteFromBeginning();
 
-                case 5:
-                    System.out.print("Masukkan posisi (0 - " + (managementSystem.count - 1) + "): ");
-                    int delPosition = scanner.nextInt();
-                    scanner.nextLine();
-                    managementSystem.deleteFromPosition(delPosition);
-                    break;
+                    case 5 -> {
+                        System.out.print("Masukkan posisi (0 - " + (managementSystem.count - 1) + "): ");
+                        int delPosition = scanner.nextInt();
+                        scanner.nextLine();
+                        managementSystem.deleteFromPosition(delPosition);
+                    }
 
-                case 6:
-                    managementSystem.deleteFromEnd();
-                    break;
+                    case 6 -> managementSystem.deleteFromEnd();
 
-                case 7:
-                    System.out.print("Masukkan NIM yang ingin dihapus: ");
-                    java.lang.String nimToDelete = scanner.nextLine();
-                    managementSystem.deleteFirstOccurrence(nimToDelete);
-                    break;
+                    case 7 -> {
+                        System.out.print("Masukkan NIM yang ingin dihapus: ");
+                        java.lang.String nimToDelete = scanner.nextLine();
+                        managementSystem.deleteFirstOccurrence(nimToDelete);
+                    }
 
-                case 8:
-                    managementSystem.showData();
-                    break;
+                    case 8 -> managementSystem.showData();
 
-                case 9:
-                    running = false;
-                    System.out.println("Terima kasih! Program selesai.");
-                    break;
+                    case 9 -> {
+                        running = false;
+                        System.out.println("Terima kasih! Program selesai.");
+                    }
 
-                default:
-                    System.out.println("Menu tidak valid! Silakan pilih menu 1-9.");
+                    default -> System.out.println("Menu tidak valid! Silakan pilih menu 1-9.");
+                }
             }
         }
-        scanner.close();
     }
 }
