@@ -18,17 +18,18 @@ Dokumentasi ini memudahkan untuk memahami, mempelajari, dan mereproduksi impleme
 
 ```
 Belajar-struktur-data/
-├── string/              # Materi Array & String Operations
+├── array/               # Materi Array Operations
 │   ├── MahasiswaApp.java    # Implementasi Java
 │   ├── mahasiswa.py         # Implementasi Python
 │   ├── README.md            # Dokumentasi lengkap
 │   └── PROMPTS.md           # Prompt yang digunakan untuk generate code
+├── LICENSE              # MIT License
 └── README.md            # File ini
 ```
 
 ## Materi yang Dipelajari
 
-### 1. Array Operations (Folder: `string/`)
+### 1. Array Operations (Folder: `array/`)
 Implementasi struktur data array dengan operasi:
 - Insert (beginning, position, end)
 - Delete (beginning, position, end, by value)
@@ -47,7 +48,7 @@ Implementasi struktur data array dengan operasi:
 
 2. **Pilih materi yang ingin dipelajari**:
    ```bash
-   cd string/
+   cd array/
    ```
 
 3. **Baca dokumentasi**:
@@ -56,7 +57,7 @@ Implementasi struktur data array dengan operasi:
    ```
 
 4. **Jalankan program**:
-   - Java: `javac MahasiswaApp.java && java string.MahasiswaApp`
+   - Java: `javac MahasiswaApp.java && java array.MahasiswaApp`
    - Python: `python3 mahasiswa.py`
 
 ##  Tujuan Pembelajaran

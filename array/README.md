@@ -37,15 +37,15 @@ Program ini adalah implementasi struktur data array dengan berbagai operasi inse
 #### Compile dan Run
 ```bash
 # Compile
-javac string/MahasiswaApp.java
+javac array/MahasiswaApp.java
 
 # Run
-java string.MahasiswaApp
+java array.MahasiswaApp
 ```
 
-#### Atau jika berada di dalam folder string:
+#### Atau jika berada di dalam folder array:
 ```bash
-cd string
+cd array
 javac MahasiswaApp.java
 java MahasiswaApp
 ```
@@ -58,15 +58,15 @@ java MahasiswaApp
 #### Run
 ```bash
 # Langsung jalankan
-python3 string/mahasiswa.py
+python3 array/mahasiswa.py
 
 # Atau
-python string/mahasiswa.py
+python array/mahasiswa.py
 ```
 
-#### Atau jika berada di dalam folder string:
+#### Atau jika berada di dalam folder array:
 ```bash
-cd string
+cd array
 python3 mahasiswa.py
 
 # Atau buat executable (Linux/Mac)
@@ -202,7 +202,7 @@ Program melakukan validasi untuk:
 | Loop | for (int i = ...) | for i in range(...) |
 | String Format | "text " + variable | f"text {variable}" |
 | Input | Scanner.nextLine() | input() |
-| Package | package string; | N/A (module-based) |
+| Package | package array; | N/A (module-based) |
 | Execution | Compile → Run | Interpreted |
 | Method Naming | camelCase | snake_case |
 | Exception | try-catch | try-except |
