@@ -28,7 +28,7 @@ Program ini adalah implementasi struktur data array dengan berbagai operasi inse
 
 ## Cara Menjalankan
 
-### Versi Java (MahasiswaApp.java)
+### Versi Java (javaX.java)
 
 #### Prasyarat
 - Java Development Kit (JDK) versi 11 atau lebih baru
@@ -37,20 +37,20 @@ Program ini adalah implementasi struktur data array dengan berbagai operasi inse
 #### Compile dan Run
 ```bash
 # Compile
-javac array/MahasiswaApp.java
+javac array/javaX.java
 
 # Run
-java array.MahasiswaApp
+java array.javaX
 ```
 
 #### Atau jika berada di dalam folder array:
 ```bash
 cd array
-javac MahasiswaApp.java
-java MahasiswaApp
+javac javaX.java
+java javaX
 ```
 
-### Versi Python (mahasiswa.py)
+### Versi Python (python.py)
 
 #### Prasyarat
 - Python 3.6 atau lebih baru
@@ -58,20 +58,20 @@ java MahasiswaApp
 #### Run
 ```bash
 # Langsung jalankan
-python3 array/mahasiswa.py
+python3 array/python.py
 
 # Atau
-python array/mahasiswa.py
+python array/python.py
 ```
 
 #### Atau jika berada di dalam folder array:
 ```bash
 cd array
-python3 mahasiswa.py
+python3 python.py
 
 # Atau buat executable (Linux/Mac)
-chmod +x mahasiswa.py
-./mahasiswa.py
+chmod +x python.py
+./python.py
 ```
 
 ## Contoh Penggunaan
@@ -113,9 +113,9 @@ Data dengan NIM 123456 berhasil dihapus!
 
 ## Struktur Program
 
-### Java Version (MahasiswaApp.java)
+### Java Version (javaX.java)
 ```
-package string;
+package array;
 
 ├── class Mahasiswa
 │   ├── String nim
@@ -138,7 +138,7 @@ package string;
     └── main()
 ```
 
-### Python Version (mahasiswa.py)
+### Python Version (python.py)
 ```
 #!/usr/bin/env python3
 

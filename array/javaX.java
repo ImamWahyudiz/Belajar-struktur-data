@@ -3,32 +3,32 @@ package array;
 import java.util.Scanner;
 
 class Mahasiswa {
-    java.lang.String nim;
-    java.lang.String nama;
+    String nim;
+    String nama;
 
-    public Mahasiswa(java.lang.String nim, java.lang.String nama) {
+    public Mahasiswa(String nim, String nama) {
         this.nim = nim;
         this.nama = nama;
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "NIM: " + nim + ", Nama: " + nama;
     }
 }
 
-public class MahasiswaApp {
+public class javaX {
     private static final int CAPACITY = 10;
     private final Mahasiswa[] data;
     private int count;
 
-    public MahasiswaApp() {
+    public javaX() {
         data = new Mahasiswa[CAPACITY];
         count = 0;
     }
 
     // Insert at beginning
-    public void insertAtBeginning(java.lang.String nim, java.lang.String nama) {
+    public void insertAtBeginning(String nim, String nama) {
         if (count >= CAPACITY) {
             System.out.println("Array penuh! Tidak bisa menambah data.");
             return;
@@ -43,7 +43,7 @@ public class MahasiswaApp {
     }
 
     // Insert at given position
-    public void insertAtPosition(int position, java.lang.String nim, java.lang.String nama) {
+    public void insertAtPosition(int position, String nim, String nama) {
         if (position < 0 || position > count) {
             System.out.println("Posisi tidak valid! (0 - " + count + ")");
             return;
@@ -62,7 +62,7 @@ public class MahasiswaApp {
     }
 
     // Insert at end
-    public void insertAtEnd(java.lang.String nim, java.lang.String nama) {
+    public void insertAtEnd(String nim, String nama) {
         if (count >= CAPACITY) {
             System.out.println("Array penuh! Tidak bisa menambah data.");
             return;
@@ -114,7 +114,7 @@ public class MahasiswaApp {
     }
 
     // Delete first occurrence
-    public void deleteFirstOccurrence(java.lang.String nim) {
+    public void deleteFirstOccurrence(String nim) {
         boolean found = false;
         for (int i = 0; i < count; i++) {
             if (data[i].nim.equals(nim)) {
@@ -163,9 +163,9 @@ public class MahasiswaApp {
         System.out.println("========================================");
     }
 
-    public static void main(java.lang.String[] args) {
+    public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            MahasiswaApp managementSystem = new MahasiswaApp();
+            javaX managementSystem = new javaX();
             int choice;
             boolean running = true;
 
@@ -182,9 +182,9 @@ public class MahasiswaApp {
                 switch (choice) {
                     case 1 -> {
                         System.out.print("Masukkan NIM: ");
-                        java.lang.String nim1 = scanner.nextLine();
+                        String nim1 = scanner.nextLine();
                         System.out.print("Masukkan Nama: ");
-                        java.lang.String nama1 = scanner.nextLine();
+                        String nama1 = scanner.nextLine();
                         managementSystem.insertAtBeginning(nim1, nama1);
                     }
 
@@ -193,17 +193,17 @@ public class MahasiswaApp {
                         int position = scanner.nextInt();
                         scanner.nextLine();
                         System.out.print("Masukkan NIM: ");
-                        java.lang.String nim2 = scanner.nextLine();
+                        String nim2 = scanner.nextLine();
                         System.out.print("Masukkan Nama: ");
-                        java.lang.String nama2 = scanner.nextLine();
+                        String nama2 = scanner.nextLine();
                         managementSystem.insertAtPosition(position, nim2, nama2);
                     }
 
                     case 3 -> {
                         System.out.print("Masukkan NIM: ");
-                        java.lang.String nim3 = scanner.nextLine();
+                        String nim3 = scanner.nextLine();
                         System.out.print("Masukkan Nama: ");
-                        java.lang.String nama3 = scanner.nextLine();
+                        String nama3 = scanner.nextLine();
                         managementSystem.insertAtEnd(nim3, nama3);
                     }
 
@@ -220,7 +220,7 @@ public class MahasiswaApp {
 
                     case 7 -> {
                         System.out.print("Masukkan NIM yang ingin dihapus: ");
-                        java.lang.String nimToDelete = scanner.nextLine();
+                        String nimToDelete = scanner.nextLine();
                         managementSystem.deleteFirstOccurrence(nimToDelete);
                     }
 

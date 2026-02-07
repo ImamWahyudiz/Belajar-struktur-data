@@ -19,8 +19,8 @@ Dokumentasi ini memudahkan untuk memahami, mempelajari, dan mereproduksi impleme
 ```
 Belajar-struktur-data/
 ├── array/               # Materi Array Operations
-│   ├── MahasiswaApp.java    # Implementasi Java
-│   ├── mahasiswa.py         # Implementasi Python
+│   ├── javaX.java           # Implementasi Java
+│   ├── python.py            # Implementasi Python
 │   ├── README.md            # Dokumentasi lengkap
 │   └── PROMPTS.md           # Prompt yang digunakan untuk generate code
 ├── LICENSE              # MIT License
@@ -57,8 +57,8 @@ Implementasi struktur data array dengan operasi:
    ```
 
 4. **Jalankan program**:
-   - Java: `javac MahasiswaApp.java && java array.MahasiswaApp`
-   - Python: `python3 mahasiswa.py`
+   - Java: `javac javaX.java && java array.javaX`
+   - Python: `python3 python.py`
 
 ##  Tujuan Pembelajaran
 
