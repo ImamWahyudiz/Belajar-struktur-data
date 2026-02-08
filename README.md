@@ -2,6 +2,17 @@
 
 Repository ini berisi tugas-tugas dan latihan yang saya kerjakan untuk mata kuliah **Struktur Data** Semester 4.
 
+## ⚠️ Disclaimer
+
+**Repository ini menggunakan Large Language Model (LLM) / AI sebagai bantuan dalam proses pembuatan kode.**
+
+Kode dalam repository ini dihasilkan dengan bantuan AI (GitHub Copilot, Claude, dan tools serupa) untuk tujuan pembelajaran dan memahami konsep struktur data. Setiap implementasi dilengkapi dengan:
+- Dokumentasi lengkap untuk memudahkan pemahaman
+- Komentar kode yang menjelaskan logika dan algoritma
+- File `PROMPTS.txt` yang berisi prompt yang digunakan untuk generate code
+
+Tujuan penggunaan AI adalah untuk **mempercepat pembelajaran** dan **memahami best practices** dalam implementasi struktur data, bukan untuk menghindari proses belajar.
+
 ## Deskripsi
 
 Repository ini merupakan kumpulan implementasi berbagai konsep struktur data yang dipelajari dalam perkuliahan. Setiap folder berisi materi tertentu beserta implementasi dalam berbagai bahasa pemrograman.
@@ -10,7 +21,7 @@ Repository ini merupakan kumpulan implementasi berbagai konsep struktur data yan
 
 Setiap folder materi memiliki dokumentasi lengkap:
 - **README.md** - Penjelasan lengkap program, cara penggunaan, struktur kode, dan konsep struktur data
-- **PROMPTS.md** - Prompt yang digunakan untuk generate code (dengan AI assistance)
+- **PROMPTS.txt** - Prompt yang digunakan untuk generate code (dengan AI assistance)
 
 Dokumentasi ini memudahkan untuk memahami, mempelajari, dan mereproduksi implementasi yang ada.
 
@@ -22,7 +33,7 @@ Belajar-struktur-data/
 │   ├── javaX.java           # Implementasi Java
 │   ├── python.py            # Implementasi Python
 │   ├── README.md            # Dokumentasi lengkap
-│   └── PROMPTS.md           # Prompt yang digunakan untuk generate code
+│   └── PROMPTS.txt          # Prompt yang digunakan untuk generate code
 ├── LICENSE              # MIT License
 └── README.md            # File ini
 ```
