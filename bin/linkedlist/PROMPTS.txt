@@ -1,0 +1,31 @@
+# Prompt History
+
+## 1. Generate Program Singly LinkedList (Java dan Python)
+
+Buat program (Java dan Python) menggunakan struktur Singly LinkedList, untuk menyimpan sejumlah data mahasiswa (nim dan nama). Program memiliki menu sebagai berikut:
+1. Insert at beginning (data baru ditempatkan di depan)
+2. Insert at given position (data baru ditempatkan di posisi sesuai pilihan = 1 sampai count+1)
+3. Insert at end (data baru ditambahkan di akhir)
+4. Delete from beginning (hapus data paling depan)
+5. Delete given position (hapus data di posisi sesuai pilihan = 1 sampai count)
+6. Delete from end (hapus data terakhir)
+7. Delete first occurence (hapus data mhs berdasarkan nim sesuai input user)
+8. Show data (tampilkan semua data di LinkedList)
+9. Exit
+
+NB:
+1. setiap operasi insert maka variabel count ditambah dengan 1.
+2. Setiap operasi delete variabel count dikurang dengan 1
+3. tidak boleh menggunakan library untuk operasi LinkedList
+
+## Struktur Folder
+
+Folder linkedlist dengan struktur yang sama dengan folder array:
+- javaX.java (implementasi Java)
+- python.py (implementasi Python)
+- README.md (dokumentasi lengkap)
+- PROMPTS.txt (riwayat prompt)
+
+## Tanggal Pembuatan
+
+11 Februari 2026
