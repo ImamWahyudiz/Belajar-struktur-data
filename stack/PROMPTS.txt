@@ -1,0 +1,32 @@
+# Prompt History
+
+## LLM yang Digunakan
+**Model**: Claude Sonnet 4.5 (GitHub Copilot)  
+**Provider**: Anthropic via GitHub Copilot  
+**Tanggal**: 27 Februari 2026
+
+---
+
+## 1. Generate Program Evaluasi Ekspresi Aritmatika dengan Stack (Java & Python)
+
+### Prompt
+Buatlah program (Java & Python) untuk mengevaluasi sebuah ekspresi aritmatika dengan menggunakan struktur data Stack (boleh Array/Linked List), dengan ketentuan sebagai berikut:
+
+1. Input merupakan sebuah ekspresi aritmatika (infix)
+2. Output meliputi:
+   - postfix expression
+   - step by step perhitungan (berdasarkan proses push-pop stack)
+   - hasil akhir perhitungan
+   
+Pastikan step perhitungannya ditampilkan dengan jelas.
+
+
+### Struktur Folder
+```
+stack/
+├── javaX.java       # Implementasi Java
+├── python.py        # Implementasi Python
+├── README.md        # Dokumentasi lengkap
+└── PROMPTS.txt      # File ini (riwayat prompt)
+```
+
