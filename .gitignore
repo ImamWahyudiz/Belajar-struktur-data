@@ -16,12 +16,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
 .Python
-env/
-venv/
-.venv/
-ENV/
 build/
 develop-eggs/
 dist/
@@ -67,22 +62,32 @@ Thumbs.db
 # Audio/Voice files
 *.mp3
 *.wav
+*.ogg
+*.flac
 .piper_voices/
 *.onnx
-*.json
+download_piper_voice.py
+install_indonesian_voice.sh
 
 # Build directories
 bin/
 target/
 out/
+build/
 
-# Test files (keep in repo but ignore outputs)
+# Test files
+test_*.py
+test_*.sh
+test_*.java
+*_test.py
+*_test.java
 test_output/
 *.test
 
-# Java
-*.class
-*.jar
-*.war
-*.ear
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Java specific
 hs_err_pid*

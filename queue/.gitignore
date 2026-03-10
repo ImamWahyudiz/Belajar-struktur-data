@@ -6,13 +6,20 @@
 *.war
 *.ear
 
-# Python cache
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
 .venv/
 venv/
+env/
+ENV/
 
 # IDE files
 .vscode/
@@ -21,21 +28,43 @@ venv/
 .classpath
 .project
 .settings/
+*.swp
+*.swo
+*~
 
 # OS files
 .DS_Store
 Thumbs.db
 *.tmp
 *.log
+*.bak
 
 # Audio files (temporary TTS output)
 *.mp3
 *.wav
+*.ogg
+*.flac
 
-# Voice model files
+# Voice model files & installers
 .piper_voices/
 *.onnx
+*.onnx.json
+download_piper_voice.py
+install_indonesian_voice.sh
 
 # Test files
 test_*.py
 test_*.sh
+test_*.java
+*_test.py
+*_test.java
+
+# Build directories
+build/
+dist/
+*.egg-info/
+
+# Temporary files
+tmp/
+temp/
+cache/
