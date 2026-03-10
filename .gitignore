@@ -1,0 +1,88 @@
+# Compiled files
+*.class
+*.o
+*.so
+*.dll
+*.exe
+
+# Package files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.log
+
+# Audio/Voice files
+*.mp3
+*.wav
+.piper_voices/
+*.onnx
+*.json
+
+# Build directories
+bin/
+target/
+out/
+
+# Test files (keep in repo but ignore outputs)
+test_output/
+*.test
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*

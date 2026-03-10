@@ -1,0 +1,11 @@
+# Python Requirements untuk Queue Simulation
+
+# Text-to-Speech library
+pyttsx3>=2.90
+
+# Note: tkinter biasanya sudah included di Python installation
+# Jika tidak ada, install dengan:
+# Ubuntu/Debian: sudo apt install python3-tk
+# Fedora: sudo dnf install python3-tkinter
+# macOS: sudah included
+# Windows: sudah included

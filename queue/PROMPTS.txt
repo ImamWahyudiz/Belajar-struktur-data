@@ -1,0 +1,31 @@
+# Queue Simulation - Development Prompts
+
+Buat program simulasi antrian di tempat pelayanan publik (misal: Bank) menggunakan struktur data Queue dengan ketentuan sebagai berikut:
+1. Menggunakan bahasa Java dan Python
+2. Menggunakan tampilan grafis (GUI)
+3. Fitur ambil antrian, akan meminta input nama, adapun nomor akan digenerate secara otomatis (1,2,3,...dst)
+4. Fitur tampilkan data yg ada dalam antrian (nomor dan nama)
+5. Fitur panggil antrian (menampilkan dan memanggil nomor & nama), usahakan berupa panggilan suara
+6. Boleh menggunakan fix-sized array atau linked list
+
+## Audio/Speech Fixes
+- ga ada suara
+- sudah, tapi window panggil antriannya delay muncul setelah selesai bicara
+
+## UI Color Theming
+- ganti tema menjadi hijau biru sebgai warna dasar
+- tidak bisakah latar belakangnya di ganti warna juga
+- header nama dan nomor antrian tidak perlu bisa di hoover. dan latar belakang table tempat data tu jadiin kuning
+- kuningnya yang kuning banget dan window tambah antrls -la "/home/Apachersa/Dokumen/Semester 4/Struktur data" | grep "^\."ian masih putih
+- hijauna pakai hijau tua. dan window tambahkan dan panggil antrian jangan beda warna
+- kembali ke warna hijau awal
+- warna kuning bgnya adiin lebih halus
+- tombol2 jangan warna hijau, jangan terlalu banyak warna juga maksimal 2
+- jangan warna gelap jadiin kuning ja
+- warna bgnya dua aja kuning bg data dan selain itu hijau dan samain warnanya ga perlu beda2. jadi warna tombol kuning, bg table kuning agak muda, yang lain hijau jangan beda2 hijaunya
+- hijaunya yang lebih halus
+
+## Project Maintenance
+- rapikan semua haus file yang tidak perlu
+- perbaiki gitignore untuk semua folder
+- perbarui prompt.txt untuk queue
