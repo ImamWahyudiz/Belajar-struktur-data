@@ -1,0 +1,4 @@
+Youtube: https://www.youtube.com/watch?v=OvkmKQ5bX8Y&authuser=0
+Github:  https://github.com/ImamWahyudiz/Belajar-struktur-data/tree/main/queue
+
+Menggunakan doubly linked listk

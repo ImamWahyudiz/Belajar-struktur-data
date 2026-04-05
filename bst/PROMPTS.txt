@@ -1,0 +1,48 @@
+PERINTAH PEMBUATAN PROGRAM BINARY SEARCH TREE (BST)
+
+1. BUAT PROGRAM BST LENGKAP
+   - Implementasi dalam 2 bahasa: Java dan Python
+   - Fitur utama:
+     * Tambah data barang
+     * Cari data berdasarkan ID
+     * Hapus data
+     * Traversal Inorder (urutan ascending)
+     * Traversal Preorder (untuk copy tree)
+     * Traversal Postorder (untuk delete tree)
+
+2. STRUKTUR FOLDER DAN ORGANISASI
+   - Buat folder "bst" dengan format yang sama seperti folder "array"
+   - File yang diperlukan:
+     * javaX.java (implementasi Java)
+     * python.py (implementasi Python)
+     * README.md (dokumentasi)
+     * PROMPTS.txt (file ini)
+     * data.csv (data test)
+   - Duplikasi struktur ke folder "bin/bst" untuk deployment
+
+3. DATA DAN TESTING
+   - Gunakan data dari file Excel yang disediakan (97 items)
+   - Buat file data.csv dengan format: ID,Nama
+   - Implementasikan file loading untuk bulk data insertion
+   - Tambahkan menu option untuk load data dari CSV
+
+4. FITUR TRAVERSAL
+   - Implementasikan 3 jenis traversal: Inorder, Preorder, Postorder
+   - Tampilkan hasil traversal dengan format daftar terurut
+   - Tunjukkan statistik tree: jumlah node, tinggi tree, status balance
+
+5. INDIKATOR BALANCE
+   - Tambahkan deteksi balance status tree
+   - Tampilkan: ✓ BALANCED atau ✗ NOT BALANCED
+   - Informasi kemudian jadi prominent di setiap output traversal
+
+6. FITUR AUTO-BALANCE
+   - Implementasikan fitur untuk membuat tree menjadi balanced
+   - Gunakan algoritma: collect sorted data → rebuild tree dari middle element
+   - Tambahkan menu option untuk trigger auto-balance
+   - Cocok untuk data yang diload dari CSV
+
+7. SIMPLIFIKASI VISUALISASI
+   - Jangan gunakan ilustrasi tree dengan garis-garis ASCII (├─, └─, dll)
+   - Fokus pada output data dalam bentuk list/daftar terurut
+   - Prioritas: hasil data > penjelasan verbose
