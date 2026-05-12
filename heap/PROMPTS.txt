@@ -1,0 +1,85 @@
+# Prompt History
+
+## 1. Generate Program Min-Heap dan Max-Heap (Java dan Python)
+
+Buat program (Java dan Python) menggunakan struktur data Heap untuk menyimpan sejumlah data barang (id dan nama). Program memiliki menu sebagai berikut:
+1. Insert data (Tambah data barang ke dalam Min-Heap dan Max-Heap)
+2. Display ascending (Tampilkan data terurut ascending dari Min-Heap)
+3. Display descending (Tampilkan data terurut descending dari Max-Heap)
+4. Delete from Min-Heap (Hapus elemen dengan ID tertentu dari Min-Heap)
+5. Delete from Max-Heap (Hapus elemen dengan ID tertentu dari Max-Heap)
+6. Load from CSV (Tambah data dari file data.csv ke dalam kedua heap)
+7. Exit
+
+NB:
+1. Data disimpan dalam dua struktur heap sekaligus (Min-Heap dan Max-Heap)
+2. Min-Heap property: parent ≤ children (elemen terkecil di root)
+3. Max-Heap property: parent ≥ children (elemen terbesar di root)
+4. Operasi insert menggunakan heapifyUp (O(log n))
+5. Operasi delete menggunakan heapifyDown (O(log n))
+6. Operasi display sorted menggunakan ekstraksi elemen (O(n log n))
+7. File CSV berisi data dengan format: ID, Nama
+
+## Struktur Folder
+
+Folder heap dengan struktur:
+- javaX.java (implementasi Java)
+- python.py (implementasi Python)
+- README.md (dokumentasi lengkap)
+- PROMPTS.txt (riwayat prompt)
+- data.csv (file data contoh)
+
+## Tanggal Pembuatan
+
+12 Mei 2026
+Masukkan ID Barang: 1001
+Masukkan Nama Barang: Buku
+✓ Data berhasil ditambahkan ke Min-Heap dan Max-Heap!
+
+Menu 2 - Tampilkan Ascending:
+Pilih menu (0-6): 2
+(Menampilkan data urut ascending berdasarkan ID)
+
+Menu 3 - Tampilkan Descending:
+Pilih menu (0-6): 3
+(Menampilkan data urut descending berdasarkan ID)
+
+Menu 6 - Load dari CSV:
+Pilih menu (0-6): 6
+Masukkan nama file CSV (default: data.csv): data.csv
+✓ Berhasil menambahkan 29 data dari file CSV
+
+TESTING CHECKLIST:
+==================
+[] Kompilasi Java berhasil
+[] Program Java dapat dijalankan
+[] Python syntax valid
+[] Program Python dapat dijalankan
+[] Insert data berfungsi
+[] Display ascending berfungsi
+[] Display descending berfungsi
+[] Delete dari min-heap berfungsi
+[] Delete dari max-heap berfungsi
+[] Load CSV berfungsi
+[] Validasi duplikasi ID berfungsi
+[] Error handling berfungsi
+
+CATATAN IMPLEMENTASI:
+====================
+- Kedua heap menggunakan array (ArrayList di Java, list di Python)
+- Insert dan Delete menjaga heap property dengan heapifyUp/heapifyDown
+- getSorted menggunakan heap sort algorithm
+- CSV loading mencegah duplikasi ID otomatis
+- Kedua heap selalu sinkron (sama-sama insert/delete)
+
+OPTIMISASI LANJUTAN:
+====================
+1. Improve delete performance dengan indexed heap
+2. Tambah heap visualization
+3. Tambah statistics (height, levels, dll)
+4. Add update operation
+5. Add search by name
+6. Export ke CSV
+
+---
+Program dibuat untuk Struktur Data - Tahun 2024
