@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Graph Visualizer — Struktur Data</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0d0d1f;color:#dde;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+/* HEADER */
+#hdr{background:linear-gradient(135deg,#1a1040,#0d2040);padding:10px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #2a2a6a;flex-shrink:0}
+#hdr h1{font-size:1.1rem;background:linear-gradient(90deg,#8b6fff,#4dc8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.badge{background:#1a1040;border:1px solid #5533cc;border-radius:20px;padding:2px 10px;font-size:0.68rem;color:#a88bff}
+#hdr-stats{margin-left:auto;display:flex;gap:12px;font-size:0.75rem;color:#8888bb}
+#hdr-stats span b{color:#4dc8ff}
+
+/* LAYOUT */
+#main{display:flex;flex:1;overflow:hidden}
+#cv-wrap{flex:1;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 50%,#12123a 0%,#0d0d1f 70%)}
+canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+#hint{position:absolute;bottom:12px;left:12px;font-size:0.68rem;color:#3a3a7a;pointer-events:none}
+
+/* SIDEBAR */
+#sb{width:300px;background:#0f0f28;border-left:1px solid #1e1e4a;display:flex;flex-direction:column;overflow:hidden}
+
+/* TABS */
+.tabs{display:flex;background:#0a0a1e;border-bottom:1px solid #1e1e4a;flex-shrink:0}
+.tab-btn{flex:1;padding:10px 4px;font-size:0.7rem;font-weight:600;background:none;border:none;color:#5555aa;cursor:pointer;letter-spacing:.5px;border-bottom:2px solid transparent;transition:.2s}
+.tab-btn.on{color:#8b6fff;border-bottom-color:#8b6fff;background:#0d0d28}
+
+/* TAB PANELS */
+.tab-panel{display:none;flex-direction:column;flex:1;overflow-y:auto;padding:14px}
+.tab-panel.on{display:flex}
+
+.section-title{font-size:0.68rem;color:#8b6fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;margin-top:14px}
+.section-title:first-child{margin-top:0}
+
+input,select{width:100%;background:#12122e;border:1px solid #2a2a6a;border-radius:6px;padding:8px 10px;color:#dde;font-size:0.82rem;margin-bottom:6px;outline:none;appearance:none}
+input:focus,select:focus{border-color:#8b6fff;box-shadow:0 0 0 2px #8b6fff33}
+select option{background:#12122e}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.btn{width:100%;padding:9px;border:none;border-radius:7px;cursor:pointer;font-size:0.8rem;font-weight:700;transition:.15s;margin-bottom:5px}
+.btn:active{transform:scale(.97)}
+.btn-g{background:linear-gradient(135deg,#5533cc,#2277cc);color:#fff}
+.btn-g:hover{filter:brightness(1.15)}
+.btn-r{background:#1e0a2e;border:1px solid #8b3fff;color:#c8a8ff}
+.btn-r:hover{background:#2a1040}
+.btn-t{background:linear-gradient(135deg,#0d3020,#0d2040);border:1px solid #4dc8ff;color:#4dc8ff}
+.btn-t:hover{filter:brightness(1.2)}
+.btn-c{background:#200a0a;border:1px solid #ff5555;color:#ff9999}
+.btn-c:hover{background:#300d0d}
+
+/* Mode toggle */
+.mode-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.mode-btn{padding:8px;border-radius:6px;border:1px solid #2a2a6a;background:#12122e;color:#5555aa;font-size:0.75rem;cursor:pointer;transition:.2s;font-weight:600}
+.mode-btn.on{background:#1a1040;border-color:#8b6fff;color:#c4b5ff}
+
+/* Vertex list */
+#vlist{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.vtag{background:#1a1040;border:1px solid #5533cc;border-radius:5px;padding:3px 10px;font-size:0.75rem;color:#c4b5ff;cursor:pointer;transition:.15s}
+.vtag:hover{background:#2a1a60;border-color:#8b6fff}
+.vtag.sel{background:#5533cc;color:#fff}
+
+/* Speed slider */
+.spd-row{display:flex;align-items:center;gap:8px;font-size:0.72rem;color:#7788aa;margin-bottom:8px}
+.spd-row input{margin-bottom:0;padding:0;height:4px;border:none;cursor:pointer}
+
+/* LOG */
+#log{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:3px}
+.le{padding:5px 8px;border-radius:5px;font-size:0.72rem;animation:fi .25s}
+.ok{background:#0a2010;border-left:3px solid #4ade80;color:#86efac}
+.er{background:#200a0a;border-left:3px solid #f87171;color:#fca5a5}
+.inf{background:#0a1828;border-left:3px solid #4dc8ff;color:#93c5fd}
+.tr{background:#140a28;border-left:3px solid #a78bfa;color:#c4b5fd}
+@keyframes fi{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
+
+/* MATRIX TAB */
+#mat-wrap{overflow:auto;flex:1}
+table{border-collapse:collapse;font-size:0.72rem;width:max-content}
+th,td{min-width:28px;height:24px;text-align:center;border:1px solid #1a1a3a}
+th{background:#12122e;color:#8b6fff}
+.c1{color:#4ade80;font-weight:700}
+.c0{color:#2a2a5a}
+.cD{color:#2a2a5a;background:#0f0f22}
+
+/* ADJ LIST */
+#alist{font-size:0.75rem;line-height:1.8;color:#aab}
+.al-v{color:#8b6fff;font-weight:700}
+.al-n{color:#4dc8ff}
+.al-e{color:#3a3a6a}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <h1>⬡ Graph Visualizer</h1>
+  <span class="badge" id="mode-badge">UNDIRECTED</span>
+  <div id="hdr-stats">
+    <span>Vertex: <b id="sv">0</b></span>
+    <span>Edge: <b id="se">0</b></span>
+  </div>
+</div>
+
+<div id="main">
+  <!-- CANVAS -->
+  <div id="cv-wrap">
+    <canvas id="cv"></canvas>
+    <div id="hint">💡 Klik canvas untuk tambah vertex • Drag untuk pindah</div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div id="sb">
+    <div class="tabs">
+      <button class="tab-btn on" onclick="switchTab('vertex')">Vertex</button>
+      <button class="tab-btn" onclick="switchTab('edge')">Edge</button>
+      <button class="tab-btn" onclick="switchTab('traversal')">Traversal</button>
+      <button class="tab-btn" onclick="switchTab('view')">View</button>
+      <button class="tab-btn" onclick="switchTab('log')">Log</button>
+    </div>
+
+    <!-- TAB: VERTEX -->
+    <div class="tab-panel on" id="tab-vertex">
+      <div class="section-title">Mode Graf</div>
+      <div class="mode-row">
+        <button class="mode-btn on" id="btn-undir" onclick="setMode(false)">⟷ Undirected</button>
+        <button class="mode-btn" id="btn-dir" onclick="setMode(true)">→ Directed</button>
+      </div>
+
+      <div class="section-title">Tambah Vertex</div>
+      <input id="iv-new" placeholder="Nama vertex (A, B, C ...)" maxlength="5">
+      <button class="btn btn-g" onclick="doAddV()">＋ Tambah Vertex</button>
+
+      <div class="section-title">Vertex yang Ada</div>
+      <div id="vlist"></div>
+
+      <div class="section-title">Hapus Vertex Terpilih</div>
+      <select id="iv-del"><option value="">— pilih vertex —</option></select>
+      <button class="btn btn-r" onclick="doDelV()">－ Hapus Vertex</button>
+    </div>
+
+    <!-- TAB: EDGE -->
+    <div class="tab-panel" id="tab-edge">
+      <div class="section-title">Tambah Edge</div>
+      <label style="font-size:.72rem;color:#8888bb;margin-bottom:3px;display:block">Vertex Asal</label>
+      <select id="eu1"><option value="">— pilih vertex asal —</option></select>
+      <label style="font-size:.72rem;color:#8888bb;margin-bottom:3px;display:block">Vertex Tujuan</label>
+      <select id="eu2"><option value="">— pilih vertex tujuan —</option></select>
+      <button class="btn btn-g" onclick="doAddE()" style="margin-top:4px">＋ Tambah Edge</button>
+
+      <div class="section-title">Hapus Edge</div>
+      <label style="font-size:.72rem;color:#8888bb;margin-bottom:3px;display:block">Vertex Asal</label>
+      <select id="ed1"><option value="">— pilih vertex asal —</option></select>
+      <label style="font-size:.72rem;color:#8888bb;margin-bottom:3px;display:block">Vertex Tujuan</label>
+      <select id="ed2"><option value="">— pilih vertex tujuan —</option></select>
+      <button class="btn btn-r" onclick="doDelE()" style="margin-top:4px">－ Hapus Edge</button>
+
+      <div class="section-title">Daftar Edge</div>
+      <div id="edge-list" style="font-size:0.72rem;color:#aab;line-height:2"></div>
+    </div>
+
+    <!-- TAB: TRAVERSAL -->
+    <div class="tab-panel" id="tab-traversal">
+      <div class="section-title">Vertex Awal</div>
+      <select id="t-start"><option value="">— pilih vertex —</option></select>
+
+      <div class="section-title">Kecepatan Animasi</div>
+      <div class="spd-row">
+        <span>Lambat</span>
+        <input type="range" id="spd" min="100" max="1800" value="700" oninput="document.getElementById('spd-lbl').textContent=this.value+'ms'">
+        <span>Cepat</span>
+        <span id="spd-lbl" style="min-width:42px;text-align:right;color:#c4b5fd">700ms</span>
+      </div>
+
+      <div class="section-title">Algoritma</div>
+      <button class="btn btn-t" onclick="doTrav('dfs')">▶ DFS — Depth First Search</button>
+      <button class="btn btn-t" onclick="doTrav('bfs')">▶ BFS — Breadth First Search</button>
+      <button class="btn btn-c" onclick="resetClr()" style="margin-top:8px">↺ Reset Warna Graf</button>
+
+      <div class="section-title">Hasil Traversal</div>
+      <div id="trav-result" style="font-size:0.8rem;color:#c4b5fd;line-height:1.8;min-height:30px"></div>
+    </div>
+
+    <!-- TAB: VIEW -->
+    <div class="tab-panel" id="tab-view">
+      <div class="section-title">Adjacency List</div>
+      <div id="alist"></div>
+      <div class="section-title" style="margin-top:16px">Adjacency Matrix</div>
+      <div id="mat-wrap"><div id="matrix"></div></div>
+    </div>
+
+    <!-- TAB: LOG -->
+    <div class="tab-panel" id="tab-log" style="padding:0">
+      <div id="log"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────
+const V={}, E=[];
+let directed=false, dragging=null, dx=0, dy=0, animating=false;
+const C={def:'#8b6fff',vis:'#4ade80',cur:'#fbbf24',ed:'#2a2a6a',ev:'#4ade80',ec:'#fbbf24'};
+
+// ── Canvas setup ───────────────────────────────────────────────
+const cv=document.getElementById('cv');
+const ctx=cv.getContext('2d');
+function resize(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;draw()}
+window.addEventListener('resize',resize);
+
+// ── Tab switching ──────────────────────────────────────────────
+function switchTab(id){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    const ids=['vertex','edge','traversal','view','log'];
+    b.classList.toggle('on',ids[i]===id);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p=>{
+    p.classList.toggle('on',p.id==='tab-'+id);
+  });
+  if(id==='view')refreshView();
+}
+
+// ── Helpers ────────────────────────────────────────────────────
+const n=s=>s.trim().toUpperCase();
+function log(msg,type='inf'){
+  const d=document.getElementById('log');
+  const el=document.createElement('div');
+  el.className='le '+type; el.textContent=msg;
+  d.appendChild(el); d.scrollTop=d.scrollHeight;
+}
+function delay(){return new Promise(r=>setTimeout(r,+document.getElementById('spd').value))}
+
+// ── Vertex CRUD ────────────────────────────────────────────────
+function doAddV(){
+  let name=n(document.getElementById('iv-new').value);
+  if(!name){log('Nama vertex kosong!','er');return}
+  if(V[name]){log(`Vertex '${name}' sudah ada!`,'er');return}
+  const cx=cv.width/2, cy=cv.height/2;
+  const ang=Math.random()*2*Math.PI, r=80+Math.random()*120;
+  V[name]={x:cx+r*Math.cos(ang),y:cy+r*Math.sin(ang),c:C.def};
+  document.getElementById('iv-new').value='';
+  log(`Vertex '${name}' ditambahkan`,'ok');
+  update();
+}
+function doDelV(){
+  const name=document.getElementById('iv-del').value;
+  if(!name||!V[name]){log('Pilih vertex yang valid!','er');return}
+  for(let i=E.length-1;i>=0;i--) if(E[i].u===name||E[i].v===name) E.splice(i,1);
+  delete V[name];
+  log(`Vertex '${name}' + edge-nya dihapus`,'ok');
+  update();
+}
+
+// ── Edge CRUD ──────────────────────────────────────────────────
+function doAddE(){
+  const u=n(document.getElementById('eu1').value);
+  const v=n(document.getElementById('eu2').value);
+  if(!u||!v){log('Pilih kedua vertex!','er');return}
+  if(u===v){log('Self-loop tidak diizinkan!','er');return}
+  if(!V[u]||!V[v]){log('Vertex tidak ditemukan!','er');return}
+  if(E.some(e=>e.u===u&&e.v===v)){log(`Edge ${u}→${v} sudah ada!`,'er');return}
+  if(!directed&&E.some(e=>e.u===v&&e.v===u)){log(`Edge ${u}–${v} sudah ada!`,'er');return}
+  E.push({u,v,c:C.ed});
+  log(`Edge '${u}' ${directed?'→':'–'} '${v}' ditambahkan`,'ok');
+  update();
+}
+function doDelE(){
+  const u=n(document.getElementById('ed1').value);
+  const v=n(document.getElementById('ed2').value);
+  if(!u||!v){log('Pilih kedua vertex!','er');return}
+  let idx=E.findIndex(e=>e.u===u&&e.v===v);
+  if(idx===-1&&!directed) idx=E.findIndex(e=>e.u===v&&e.v===u);
+  if(idx===-1){log(`Edge '${u}'–'${v}' tidak ditemukan!`,'er');return}
+  E.splice(idx,1);
+  log(`Edge '${u}'–'${v}' dihapus`,'ok');
+  update();
+}
+
+// ── Neighbors ─────────────────────────────────────────────────
+function getNb(v){
+  const r=new Set();
+  E.forEach(e=>{if(e.u===v)r.add(e.v);if(!directed&&e.v===v)r.add(e.u)});
+  return [...r].sort();
+}
+
+// ── Traversal ─────────────────────────────────────────────────
+async function doTrav(algo){
+  if(animating){log('Traversal sedang berjalan!','er');return}
+  const start=n(document.getElementById('t-start').value);
+  if(!V[start]){log('Pilih vertex awal!','er');return}
+  animating=true; resetClr(false);
+  const order=[],label=algo==='dfs'?'DFS':'BFS';
+  log(`${label} dimulai dari '${start}'`,'tr');
+
+  if(algo==='dfs'){
+    const stack=[start],seen=new Set();
+    while(stack.length){
+      const cur=stack.pop(); if(seen.has(cur))continue;
+      seen.add(cur); order.push(cur);
+      V[cur].c=C.cur; draw(); await delay();
+      V[cur].c=C.vis;
+      E.forEach(e=>{if((e.u===cur&&seen.has(e.v))||(!directed&&e.v===cur&&seen.has(e.u)))e.c=C.ev});
+      getNb(cur).reverse().forEach(nb=>{if(!seen.has(nb))stack.push(nb)});
+      draw(); await delay();
+    }
+  } else {
+    const q=[start],seen=new Set([start]);
+    while(q.length){
+      const cur=q.shift(); order.push(cur);
+      V[cur].c=C.cur; draw(); await delay();
+      V[cur].c=C.vis;
+      getNb(cur).forEach(nb=>{
+        if(!seen.has(nb)){
+          seen.add(nb); q.push(nb);
+          E.forEach(e=>{if((e.u===cur&&e.v===nb)||(!directed&&e.u===nb&&e.v===cur))e.c=C.ev});
+        }
+      });
+      draw(); await delay();
+    }
+  }
+  const res=order.join(' → ');
+  document.getElementById('trav-result').textContent=`${label}: ${res}`;
+  log(`${label} selesai: ${res}`,'tr');
+  animating=false; draw();
+}
+
+function resetClr(doLog=true){
+  Object.values(V).forEach(v=>v.c=C.def);
+  E.forEach(e=>e.c=C.ed);
+  document.getElementById('trav-result').textContent='';
+  if(doLog)log('Warna direset','inf');
+  draw();
+}
+
+// ── Mode ───────────────────────────────────────────────────────
+function setMode(d){
+  directed=d;
+  document.getElementById('btn-undir').classList.toggle('on',!d);
+  document.getElementById('btn-dir').classList.toggle('on',d);
+  document.getElementById('mode-badge').textContent=d?'DIRECTED':'UNDIRECTED';
+  log(`Mode: ${d?'DIRECTED':'UNDIRECTED'}`,'inf');
+  draw();
+}
+
+// ── Draw ───────────────────────────────────────────────────────
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  // Grid
+  ctx.fillStyle='#161630';
+  for(let x=30;x<cv.width;x+=40) for(let y=30;y<cv.height;y+=40){ctx.beginPath();ctx.arc(x,y,1.2,0,Math.PI*2);ctx.fill()}
+
+  // Edges
+  E.forEach(e=>{
+    const a=V[e.u],b=V[e.v]; if(!a||!b)return;
+    ctx.save(); ctx.strokeStyle=e.c; ctx.lineWidth=2.5;
+    ctx.shadowColor=e.c; ctx.shadowBlur=8;
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+    if(directed){
+      const ddx=b.x-a.x,ddy=b.y-a.y,len=Math.hypot(ddx,ddy);
+      const ux=ddx/len,uy=ddy/len;
+      const tx=b.x-ux*23,ty=b.y-uy*23;
+      ctx.beginPath(); ctx.moveTo(b.x-ux*21,b.y-uy*21);
+      ctx.lineTo(tx-uy*8,ty+ux*8); ctx.lineTo(tx+uy*8,ty-ux*8);
+      ctx.closePath(); ctx.fillStyle=e.c; ctx.fill();
+    }
+    ctx.restore();
+  });
+
+  // Vertices
+  Object.entries(V).forEach(([name,v])=>{
+    ctx.save();
+    ctx.shadowColor=v.c; ctx.shadowBlur=22;
+    ctx.beginPath(); ctx.arc(v.x,v.y,22,0,Math.PI*2);
+    ctx.fillStyle='#0d0d22'; ctx.fill();
+    ctx.strokeStyle=v.c; ctx.lineWidth=2.8; ctx.stroke();
+    ctx.shadowBlur=0; ctx.fillStyle=v.c;
+    ctx.font='bold 13px Segoe UI'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(name,v.x,v.y);
+    ctx.restore();
+  });
+
+  // Stats
+  const verts=Object.keys(V);
+  document.getElementById('sv').textContent=verts.length;
+  document.getElementById('se').textContent=E.length;
+  refreshSelects();
+  refreshEdgeList();
+}
+
+// ── Refresh selects & lists ────────────────────────────────────
+function refreshSelects(){
+  const verts=Object.keys(V).sort();
+  ['iv-del','eu1','eu2','ed1','ed2','t-start'].forEach(id=>{
+    const sel=document.getElementById(id);
+    const cur=sel.value;
+    const ph=sel.options[0].text;
+    sel.innerHTML=`<option value="">${ph}</option>`;
+    verts.forEach(v=>{const o=new Option(v,v);sel.appendChild(o)});
+    if(verts.includes(cur))sel.value=cur;
+  });
+  // Vertex tags
+  const vl=document.getElementById('vlist');
+  vl.innerHTML=verts.map(v=>`<span class="vtag">${v}</span>`).join('');
+}
+
+function refreshEdgeList(){
+  const el=document.getElementById('edge-list');
+  if(!E.length){el.innerHTML='<span style="color:#3a3a6a">Belum ada edge</span>';return}
+  el.innerHTML=E.map(e=>`<span style="color:#8b6fff">${e.u}</span> ${directed?'→':'—'} <span style="color:#4dc8ff">${e.v}</span>`).join('<br>');
+}
+
+function refreshView(){
+  const verts=Object.keys(V).sort();
+  // Adj list
+  const al=document.getElementById('alist');
+  if(!verts.length){al.innerHTML='<span style="color:#3a3a6a">Graf kosong</span>';} 
+  else {al.innerHTML=verts.map(v=>{
+    const nb=getNb(v);
+    return `<span class="al-v">${v}</span> <span class="al-e">:</span> ${nb.length?nb.map(n=>`<span class="al-n">${n}</span>`).join(' → '):'<span style="color:#3a3a6a">–</span>'}`;
+  }).join('<br>')}
+  // Matrix
+  const mat=document.getElementById('matrix');
+  if(!verts.length){mat.innerHTML='<span style="color:#3a3a6a">Graf kosong</span>';return}
+  let h=`<table><tr><th></th>${verts.map(v=>`<th>${v}</th>`).join('')}</tr>`;
+  verts.forEach(u=>{
+    h+=`<tr><th>${u}</th>`;
+    verts.forEach(v=>{
+      if(u===v)h+='<td class="cD">–</td>';
+      else{const has=E.some(e=>(e.u===u&&e.v===v)||(!directed&&e.u===v&&e.v===u));h+=has?'<td class="c1">1</td>':'<td class="c0">0</td>'}
+    });
+    h+='</tr>';
+  });
+  mat.innerHTML=h+'</table>';
+}
+
+// ── Mouse events ───────────────────────────────────────────────
+function getPos(e){
+  const r=cv.getBoundingClientRect();
+  return{x:(e.clientX-r.left)*(cv.width/r.width),y:(e.clientY-r.top)*(cv.height/r.height)};
+}
+cv.addEventListener('mousedown',e=>{
+  const p=getPos(e);
+  for(const[name,v]of Object.entries(V)){
+    if(Math.hypot(p.x-v.x,p.y-v.y)<26){dragging=name;dx=p.x-v.x;dy=p.y-v.y;return}
+  }
+  const nm=prompt('Nama vertex baru:');
+  if(nm){const k=n(nm);if(k&&!V[k]){V[k]={x:p.x,y:p.y,c:C.def};log(`Vertex '${k}' ditambahkan`,'ok');update()}}
+});
+cv.addEventListener('mousemove',e=>{if(!dragging)return;const p=getPos(e);V[dragging].x=p.x-dx;V[dragging].y=p.y-dy;draw()});
+cv.addEventListener('mouseup',()=>dragging=null);
+
+// Enter key on input
+document.getElementById('iv-new').addEventListener('keydown',e=>{if(e.key==='Enter')doAddV()});
+
+function update(){draw()}
+
+// ── Init ───────────────────────────────────────────────────────
+resize();
+setTimeout(()=>{
+  const names=['A','B','C','D','E'];
+  const r=Math.min(cv.width,cv.height)*0.28;
+  names.forEach((v,i)=>{
+    const ang=(i/names.length)*2*Math.PI-Math.PI/2;
+    V[v]={x:cv.width/2+r*Math.cos(ang),y:cv.height/2+r*Math.sin(ang),c:C.def};
+  });
+  [['A','B'],['A','C'],['B','D'],['C','D'],['D','E']].forEach(([u,v])=>E.push({u,v,c:C.ed}));
+  log('Graf contoh dimuat: A–E dengan 5 edge','inf');
+  log('Gunakan tab Vertex & Edge untuk CRUD','inf');
+  update();
+},100);
+</script>
+</body>
+</html>

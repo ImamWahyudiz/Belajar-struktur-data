@@ -1,0 +1,16 @@
+Buat program manajemen Graf (Graph) dengan menu:
+1. Tambah Vertex
+2. Hapus Vertex
+3. Tambah Edge
+4. Hapus Edge
+5. Tampilkan graph (Adjacency List, Matrix, ASCII visual)
+6. Traversal DFS (Depth-First Search)
+7. Traversal BFS (Breadth-First Search)
+8. Toggle Directed / Undirected
+0. Quit
+
+Representasi internal menggunakan Adjacency List.
+Tampilan terminal menggunakan box-drawing characters dan ANSI color (Python).
+Pre-load 5 vertex (A–E) dan 5 edge contoh saat program dimulai.
+Implementasikan dalam Java (javaX.java) dan Python (python.py).
+Juga sediakan aplikasi web interaktif visual (graph.html) yang bisa dibuka di browser.
