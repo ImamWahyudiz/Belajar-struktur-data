@@ -1,0 +1,49 @@
+PERINTAH PEMBUATAN PROGRAM HASH TABLE
+
+1. BUAT PROGRAM HASH TABLE LENGKAP
+   - Implementasi dalam 2 bahasa: Java dan Python
+   - Fitur utama:
+     * Input Data (Insert) - masukkan angka baru ke hash table
+     * Hapus Data (Delete) - hapus angka dari hash table
+     * Cari Data (Search)  - cari apakah angka ada di hash table
+     * Tampilkan semua data (sorted ascending)
+     * Visualisasi internal (bucket view)
+   - Saat program dijalankan, 100 angka random unik (range 1000-9999) sudah otomatis diinputkan
+   - Gunakan salah satu collision technique untuk menangani tabrakan
+   - Data yang disimpan berupa himpunan data NUMERIK (integer)
+   - Tidak boleh ada data yang sama (unik)
+
+2. TEKNIK COLLISION
+   - Gunakan Separate Chaining (Open Hashing)
+   - Setiap bucket adalah head dari sebuah Linked List
+   - Elemen dengan hash value yang sama dirangkai dalam satu chain
+   - Insert baru selalu di depan chain (prepend) - O(1)
+
+3. HASH FUNCTION
+   - Metode: Modulo Division
+   - Formula: h(key) = |key| % TABLE_SIZE
+   - TABLE_SIZE = 151 (bilangan prima untuk distribusi merata)
+   - abs() digunakan agar angka negatif tetap valid
+
+4. STRUKTUR DATA PENDUKUNG
+   - Class Node: menyimpan data integer dan pointer ke node berikutnya
+   - Class HashTable: array of Node (bucket array) dengan ukuran TABLE_SIZE
+
+5. KOMPLEKSITAS
+   - Insert: O(1) average, O(n) worst case
+   - Delete: O(1) average, O(n) worst case
+   - Search: O(1) average, O(n) worst case
+   - Load Factor = count / TABLE_SIZE (ditampilkan di menu display)
+
+6. STRUKTUR FOLDER (sama seperti folder lain)
+   - javaX.java   (implementasi Java dengan package hashtable)
+   - python.py    (implementasi Python)
+   - README.md    (dokumentasi lengkap)
+   - PROMPTS.txt  (file ini)
+   - .gitignore   (file gitignore)
+
+7. GAYA KODE
+   - Gunakan box-drawing characters (╔═╣╚) untuk tampilan menu
+   - Tampilkan info bucket (index) saat insert/search berhasil
+   - Format output data: 10 angka per baris, rata kanan 6 karakter
+   - Javadoc untuk Java, docstring untuk Python

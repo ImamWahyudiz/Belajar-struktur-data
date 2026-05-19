@@ -1,2 +1,0 @@
-Youtube: https://youtu.be/jxGVeH8vEVI?si=M6aDFaNwX7L9XrHi
-Github:  https://github.com/ImamWahyudiz/Belajar-struktur-data/tree/main/circulardoublylinkedlist

@@ -1,0 +1,22 @@
+# ============================================================
+# Belajar Struktur Data - Python Requirements
+# Python 3.9+  |  pip install -r requirements.txt
+# ============================================================
+
+# ── queue/ ──────────────────────────────────────────────────
+# Text-to-Speech untuk simulasi antrian bank (queue_simulation.py)
+pyttsx3>=2.90          # TTS engine (Windows: SAPI5, macOS: NSSpeechSynthesizer)
+                       # Windows deps auto-installed: pywin32, comtypes
+
+# ── stdlib (no install needed) ──────────────────────────────
+# tkinter     – GUI (bundled with Python on Windows/macOS)
+# csv         – CSV I/O (stdlib)
+# os          – OS utils (stdlib)
+# sys         – System (stdlib)
+# threading   – Threads (stdlib)
+# time        – Timing (stdlib)
+# platform    – Platform detection (stdlib)
+# subprocess  – Shell commands (stdlib)
+# collections – deque, etc. (stdlib)
+# urllib      – HTTP (stdlib)
+# pathlib     – Path utils (stdlib)
