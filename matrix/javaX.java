@@ -378,6 +378,9 @@ class MatrixPanel extends JPanel {
     private int[][] matrix;
     private int rows;
     private int cols;
+    private int[][] originalMatrix;
+    private int origRows;
+    private int origCols;
     private List<Point> activeCells = new ArrayList<>();
     private List<Point> visitedCells = new ArrayList<>();
     
@@ -393,13 +396,25 @@ class MatrixPanel extends JPanel {
         setBackground(bgColor);
     }
 
-    public void updateState(int[][] m, int r, int c, List<Point> active, List<Point> visited) {
+    public void updateState(int[][] m, int r, int c, List<Point> active, List<Point> visited, int[][] origM, int origR, int origC) {
         this.rows = r;
         this.cols = c;
         this.matrix = new int[r][c];
         for (int i = 0; i < r; i++) {
             System.arraycopy(m[i], 0, this.matrix[i], 0, c);
         }
+        
+        if (origM != null) {
+            this.origRows = origR;
+            this.origCols = origC;
+            this.originalMatrix = new int[origR][origC];
+            for (int i = 0; i < origR; i++) {
+                System.arraycopy(origM[i], 0, this.originalMatrix[i], 0, origC);
+            }
+        } else {
+            this.originalMatrix = null;
+        }
+        
         this.activeCells = new ArrayList<>(active);
         this.visitedCells = new ArrayList<>(visited);
         repaint();
@@ -450,6 +465,41 @@ class MatrixPanel extends JPanel {
                 g2.drawString(val, txtX, txtY);
             }
         }
+        
+        // Draw Original Matrix at Top-Left if it exists
+        if (originalMatrix != null && origRows > 0 && origCols > 0) {
+            int miniCellSize = Math.max(10, cellSize / 2);
+            if (miniCellSize > 25) miniCellSize = 25;
+            
+            g2.setFont(new Font("Arial", Font.BOLD, 12));
+            g2.setColor(new Color(0xF5, 0xC2, 0xE7)); // Pinkish text for label
+            g2.drawString("Versi Asli:", 15, 20);
+            
+            int miniStartX = 15;
+            int miniStartY = 30;
+            
+            g2.setFont(new Font("Arial", Font.PLAIN, miniCellSize / 2 + 2));
+            FontMetrics miniFm = g2.getFontMetrics();
+            
+            for (int i = 0; i < origRows; i++) {
+                for (int j = 0; j < origCols; j++) {
+                    int x = miniStartX + j * miniCellSize;
+                    int y = miniStartY + i * miniCellSize;
+                    
+                    g2.setColor(cellDefault);
+                    g2.fillRect(x, y, miniCellSize, miniCellSize);
+                    
+                    g2.setColor(cellBorder);
+                    g2.drawRect(x, y, miniCellSize, miniCellSize);
+                    
+                    g2.setColor(new Color(0x6C, 0x70, 0x86)); // Dimmer text for mini matrix
+                    String val = String.valueOf(originalMatrix[i][j]);
+                    int txtX = x + (miniCellSize - miniFm.stringWidth(val)) / 2;
+                    int txtY = y + ((miniCellSize - miniFm.getHeight()) / 2) + miniFm.getAscent();
+                    g2.drawString(val, txtX, txtY);
+                }
+            }
+        }
     }
 }
 
@@ -457,6 +507,9 @@ public class javaX extends JFrame {
     
     private MatrixPanel canvasPanel;
     private int[][] currentMatrix;
+    private int[][] animationOriginalMatrix;
+    private int animationOriginalRows;
+    private int animationOriginalCols;
     private int currentRows = 4;
     private int currentCols = 4;
     private MatrixOperations ops = new MatrixOperations();
@@ -664,7 +717,8 @@ public class javaX extends JFrame {
                 currentMatrix[i][j] = rand.nextInt(90) + 10; // 10-99
             }
         }
-        canvasPanel.updateState(currentMatrix, r, c, new ArrayList<>(), new ArrayList<>());
+        animationOriginalMatrix = null;
+        canvasPanel.updateState(currentMatrix, r, c, new ArrayList<>(), new ArrayList<>(), null, 0, 0);
         txtLog.setText("Matriks acak " + r + "x" + c + " berhasil di-generate.\n");
     }
     
@@ -680,6 +734,14 @@ public class javaX extends JFrame {
         }
         
         stopAnimation(false);
+        
+        // Simpan state asli untuk ditampilkan di pojok kiri atas
+        animationOriginalRows = currentRows;
+        animationOriginalCols = currentCols;
+        animationOriginalMatrix = new int[currentRows][currentCols];
+        for(int i = 0; i < currentRows; i++){
+            System.arraycopy(currentMatrix[i], 0, animationOriginalMatrix[i], 0, currentCols);
+        }
         
         switch (index) {
             case 0: currentSteps = ops.sortRowWise(currentMatrix, currentRows, currentCols); break;
@@ -725,7 +787,8 @@ public class javaX extends JFrame {
         stepIdx = 0;
         
         if (restoreInitial) {
-            canvasPanel.updateState(currentMatrix, currentRows, currentCols, new ArrayList<>(), new ArrayList<>());
+            animationOriginalMatrix = null;
+            canvasPanel.updateState(currentMatrix, currentRows, currentCols, new ArrayList<>(), new ArrayList<>(), null, 0, 0);
             txtLog.setText("Animasi direset.\n");
         }
     }
@@ -735,7 +798,7 @@ public class javaX extends JFrame {
         
         if (stepIdx < currentSteps.size()) {
             AnimationStep step = currentSteps.get(stepIdx);
-            canvasPanel.updateState(step.matrixState, step.rows, step.cols, step.activeCells, step.visitedCells);
+            canvasPanel.updateState(step.matrixState, step.rows, step.cols, step.activeCells, step.visitedCells, animationOriginalMatrix, animationOriginalRows, animationOriginalCols);
             logMessage("Step " + (stepIdx + 1) + ": " + step.logMessage);
             
             // If this is the last step, update the base matrix to be the final state so further ops work on it

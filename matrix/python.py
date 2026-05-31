@@ -305,6 +305,10 @@ class MatrixVisualizer:
         self.current_rows = 4
         self.current_cols = 4
         
+        self.original_matrix = None
+        self.orig_rows = 0
+        self.orig_cols = 0
+        
         self.active_cells = []
         self.visited_cells = []
         
@@ -428,6 +432,7 @@ class MatrixVisualizer:
         self.current_matrix = [[random.randint(10, 99) for _ in range(self.current_cols)] for _ in range(self.current_rows)]
         self.active_cells = []
         self.visited_cells = []
+        self.original_matrix = None
         self.log_message(f"Matriks acak {self.current_rows}x{self.current_cols} berhasil di-generate.")
         self.draw_matrix()
 
@@ -470,6 +475,29 @@ class MatrixVisualizer:
                 val = str(self.current_matrix[i][j])
                 font_size = max(cell_size // 3, 8)
                 self.canvas.create_text((x1 + x2) // 2, (y1 + y2) // 2, text=val, fill=self.text_color, font=("Arial", font_size, "bold"))
+                
+        # Draw Original Matrix at Top-Left if it exists
+        if self.original_matrix is not None and self.orig_rows > 0 and self.orig_cols > 0:
+            mini_cell_size = max(10, cell_size // 2)
+            mini_cell_size = min(mini_cell_size, 25)
+            
+            self.canvas.create_text(15, 20, text="Versi Asli:", fill="#F5C2E7", font=("Arial", 10, "bold"), anchor="w")
+            
+            mini_start_x = 15
+            mini_start_y = 30
+            
+            for i in range(self.orig_rows):
+                for j in range(self.orig_cols):
+                    x1 = mini_start_x + j * mini_cell_size
+                    y1 = mini_start_y + i * mini_cell_size
+                    x2 = x1 + mini_cell_size
+                    y2 = y1 + mini_cell_size
+                    
+                    self.canvas.create_rectangle(x1, y1, x2, y2, fill=self.cell_default, outline=self.cell_border, width=1)
+                    
+                    val = str(self.original_matrix[i][j])
+                    mini_font_size = max(mini_cell_size // 2, 6)
+                    self.canvas.create_text((x1 + x2) // 2, (y1 + y2) // 2, text=val, fill="#6C7086", font=("Arial", mini_font_size))
 
     def on_speed_change(self, val):
         self.animation_delay = int(val)
@@ -481,6 +509,10 @@ class MatrixVisualizer:
             return
             
         self.stop_animation(False)
+        
+        self.original_matrix = self.ops.clone_matrix(self.current_matrix)
+        self.orig_rows = self.current_rows
+        self.orig_cols = self.current_cols
         
         if idx == 0: self.current_steps = self.ops.sort_row_wise(self.current_matrix, self.current_rows, self.current_cols)
         elif idx == 1: self.current_steps = self.ops.sort_col_wise(self.current_matrix, self.current_rows, self.current_cols)
@@ -531,6 +563,7 @@ class MatrixVisualizer:
         if restore_initial:
             self.active_cells = []
             self.visited_cells = []
+            self.original_matrix = None
             self.draw_matrix()
             self.log_message("Animasi direset.")
 
