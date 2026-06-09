@@ -7,12 +7,12 @@ Program ini mendemonstrasikan penggunaan Hash Table menggunakan
 Separate Chaining sebagai teknik collision handling untuk menyimpan
 himpunan data numerik unik.
 
-Saat program dijalankan, 100 angka random unik sudah diinputkan
-secara otomatis.
+Saat program dijalankan, angka random unik sebanyak (jumlah bucket - 1) 
+sudah diinputkan secara otomatis.
 
 Hash Function : h(key) = |key| % TABLE_SIZE (Modulo Division)
 Collision Tech : Separate Chaining (Open Hashing)
-TABLE_SIZE     : 151 (bilangan prima)
+TABLE_SIZE     : 101 (bilangan prima)
 """
 
 import random
@@ -65,12 +65,12 @@ class HashTable:
         Search : O(n)
 
     Attributes:
-        TABLE_SIZE (int): Ukuran tabel hash - bilangan prima (151)
+        TABLE_SIZE (int): Ukuran tabel hash - bilangan prima (101)
         table (list): Array of Node, masing-masing adalah head chain
         count (int): Jumlah elemen yang tersimpan
     """
 
-    TABLE_SIZE = 151  # Bilangan prima untuk distribusi yang lebih merata
+    TABLE_SIZE = 101  # Bilangan prima untuk distribusi yang lebih merata
 
     def __init__(self):
         """
@@ -81,19 +81,15 @@ class HashTable:
         self.count = 0
 
     def hash_function(self, key):
+        return abs(key) % self.TABLE_SIZE
+        
         """
         Hash Function menggunakan metode Modulo Division
         h(key) = |key| % TABLE_SIZE
 
         Menggunakan abs() agar angka negatif menghasilkan index valid.
 
-        Args:
-            key (int): Nilai kunci yang akan di-hash
-
-        Returns:
-            int: Index bucket (0 hingga TABLE_SIZE-1)
         """
-        return abs(key) % self.TABLE_SIZE
 
     def insert(self, value):
         """
@@ -105,7 +101,7 @@ class HashTable:
             value (int): Nilai numerik yang akan dimasukkan
 
         Returns:
-            bool: True jika berhasil, False jika nilai sudah ada (duplikat)
+            bool: True jika berhasil, False jika duplikat
         """
         index = self.hash_function(value)
 
@@ -241,21 +237,22 @@ class HashTable:
 
 def generate_random_data(ht):
     """
-    Generate 100 angka random unik (range 1000-9999) dan masukkan ke hash table
+    Generate angka random unik sebanyak (jumlah bucket - 1) dan masukkan ke hash table
 
     Args:
         ht (HashTable): Hash table yang akan diisi data awal
     """
-    print("  Generating 100 data random unik (range 1000-9999)...")
+    target_count = ht.TABLE_SIZE - 1
+    print(f"  Generating {target_count} data random unik (range 1000-9999)...")
     generated = set()
 
-    while len(generated) < 100:
+    while len(generated) < target_count:
         val = random.randint(1000, 9999)
         if val not in generated:
             generated.add(val)
             ht.insert(val)
 
-    print("  ✓ 100 data random berhasil diinputkan!\n")
+    print(f"  ✓ {target_count} data random berhasil diinputkan!\n")
 
 
 def display_menu():
@@ -284,11 +281,11 @@ def main():
     print("       PROGRAM HASH TABLE - HIMPUNAN DATA NUMERIK")
     print("════════════════════════════════════════════════════════════")
     print("  Teknik Collision : Separate Chaining (Open Hashing)")
-    print("  Hash Function    : h(key) = |key| % 151")
-    print("  Ukuran Tabel     : 151 bucket (bilangan prima)")
+    print("  Hash Function    : h(key) = |key| % 101")
+    print("  Ukuran Tabel     : 101 bucket (bilangan prima)")
     print("════════════════════════════════════════════════════════════\n")
 
-    # Pre-load 100 angka random unik saat program dimulai
+    # Pre-load angka random unik (bucket - 1) saat program dimulai
     generate_random_data(ht)
 
     while True:
@@ -299,7 +296,8 @@ def main():
 
             if choice == 1:  # Input Data
                 val = int(input("Masukkan angka yang akan diinput: "))
-                if ht.insert(val):
+                status = ht.insert(val)
+                if status is True:
                     print(f"✓ Angka {val} berhasil diinputkan!")
                     print(f"  → Disimpan di bucket: {abs(val) % HashTable.TABLE_SIZE}")
                 else:

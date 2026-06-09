@@ -608,6 +608,64 @@ public class javaX extends JFrame {
             }
         });
         sidebar.add(btnGenerate);
+        sidebar.add(Box.createRigidArea(new Dimension(0, 5)));
+        
+        JButton btnManual = new JButton("Input Matriks Manual");
+        styleButton(btnManual, new Color(0xCB, 0xA6, 0xF7), new Color(0x11, 0x11, 0x1B));
+        btnManual.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnManual.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        btnManual.addActionListener(e -> {
+            try {
+                int r = Integer.parseInt(tfRows.getText());
+                int c = Integer.parseInt(tfCols.getText());
+                if(r <= 0 || c <= 0 || r > 20 || c > 20) {
+                    JOptionPane.showMessageDialog(this, "Dimensi matriks harus 1-20.");
+                    return;
+                }
+                
+                JTextArea textArea = new JTextArea(10, 30);
+                JScrollPane scrollPane = new JScrollPane(textArea);
+                Object[] msg = {
+                    "Masukkan " + r + " baris, setiap baris " + c + " angka (dipisah spasi):",
+                    scrollPane
+                };
+                
+                int option = JOptionPane.showConfirmDialog(this, msg, "Input Matriks Manual", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+                    String[] lines = textArea.getText().trim().split("\\n");
+                    if (lines.length != r && !textArea.getText().trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Harus ada tepat " + r + " baris.");
+                        return;
+                    }
+                    if (textArea.getText().trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Input kosong!");
+                        return;
+                    }
+                    int[][] newMatrix = new int[r][c];
+                    for (int i = 0; i < r; i++) {
+                        String[] nums = lines[i].trim().split("\\s+");
+                        if (nums.length != c) {
+                            JOptionPane.showMessageDialog(this, "Baris " + (i+1) + " harus memiliki tepat " + c + " angka.");
+                            return;
+                        }
+                        for (int j = 0; j < c; j++) {
+                            newMatrix[i][j] = Integer.parseInt(nums[j]);
+                        }
+                    }
+                    
+                    currentRows = r;
+                    currentCols = c;
+                    stopAnimation(false);
+                    currentMatrix = newMatrix;
+                    animationOriginalMatrix = null;
+                    canvasPanel.updateState(currentMatrix, r, c, new ArrayList<>(), new ArrayList<>(), null, 0, 0);
+                    txtLog.setText("Matriks manual " + r + "x" + c + " berhasil di-input.\n");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Input baris/kolom atau data matriks tidak valid!");
+            }
+        });
+        sidebar.add(btnManual);
         sidebar.add(Box.createRigidArea(new Dimension(0, 25)));
         
         // --- 2. Algorithms ---

@@ -355,7 +355,10 @@ class MatrixVisualizer:
         self.ent_cols.pack(side=tk.LEFT, padx=(5,0))
         
         btn_gen = tk.Button(self.sidebar, text="Generate Matriks Acak", bg="#89B4FA", fg="#11111B", font=("Arial", 9, "bold"), relief="flat", command=self.on_generate_click, cursor="hand2")
-        btn_gen.pack(fill="x", pady=(0,20))
+        btn_gen.pack(fill="x", pady=(0,5))
+        
+        self.btn_manual = tk.Button(self.sidebar, text="Input Matriks Manual", bg="#CBA6F7", fg="#11111B", font=("Arial", 9, "bold"), relief="flat", command=self.on_manual_click, cursor="hand2")
+        self.btn_manual.pack(fill="x", pady=(0,20))
         
         # 2. Algorithm Menu
         tk.Label(self.sidebar, text="Menu Operasi:", bg=self.panel_bg, fg="#F5C2E7", font=("Arial", 11, "bold")).pack(anchor="w", pady=(0,5))
@@ -426,6 +429,61 @@ class MatrixVisualizer:
             self.generate_random_matrix()
         except ValueError:
             messagebox.showerror("Error", "Input tidak valid!")
+
+    def on_manual_click(self):
+        try:
+            r = int(self.ent_rows.get())
+            c = int(self.ent_cols.get())
+            if r <= 0 or c <= 0 or r > 20 or c > 20:
+                messagebox.showerror("Error", "Dimensi matriks harus 1-20.")
+                return
+            
+            top = tk.Toplevel(self.root)
+            top.title("Input Matriks Manual")
+            top.geometry("400x300")
+            top.configure(bg=self.bg_color)
+            
+            tk.Label(top, text=f"Masukkan {r} baris, setiap baris {c} angka (dipisah spasi):", bg=self.bg_color, fg=self.text_color).pack(pady=10)
+            
+            text_area = tk.Text(top, height=10, width=40, bg=self.cell_default, fg=self.text_color, insertbackground=self.text_color)
+            text_area.pack(padx=10, pady=5)
+            
+            def submit():
+                raw_text = text_area.get("1.0", tk.END).strip()
+                if not raw_text:
+                    messagebox.showerror("Error", "Input kosong!")
+                    return
+                data = raw_text.split('\n')
+                if len(data) != r:
+                    messagebox.showerror("Error", f"Harus ada tepat {r} baris. Ditemukan {len(data)} baris.")
+                    return
+                new_matrix = []
+                for i, row in enumerate(data):
+                    nums = row.strip().split()
+                    if len(nums) != c:
+                        messagebox.showerror("Error", f"Baris {i+1} harus memiliki tepat {c} angka.")
+                        return
+                    try:
+                        new_matrix.append([int(x) for x in nums])
+                    except ValueError:
+                        messagebox.showerror("Error", "Input harus berupa angka bulat.")
+                        return
+                
+                self.current_rows = r
+                self.current_cols = c
+                self.stop_animation(False)
+                self.current_matrix = new_matrix
+                self.active_cells = []
+                self.visited_cells = []
+                self.original_matrix = None
+                self.log_message(f"Matriks manual {self.current_rows}x{self.current_cols} berhasil di-input.")
+                self.draw_matrix()
+                top.destroy()
+                
+            tk.Button(top, text="Submit", command=submit, bg="#A6E3A1", fg="#11111B", font=("Arial", 9, "bold")).pack(pady=10)
+            
+        except ValueError:
+            messagebox.showerror("Error", "Input baris/kolom tidak valid!")
 
     def generate_random_matrix(self):
         self.stop_animation(False)
